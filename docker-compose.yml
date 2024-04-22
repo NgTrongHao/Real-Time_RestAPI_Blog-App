@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  springboot-blog-app-db:
+    container_name: springboot-blog-app-db
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: blog_app
+    networks:
+      springboot-mysql-blog-app-net:
+
+
+
+  springboot-blog-app-restful-api:
+    container_name: springboot-blog-app-restful-api
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      springboot-mysql-blog-app-net:
+    restart: on-failure
+
+
+
+networks:
+  springboot-mysql-blog-app-net:
